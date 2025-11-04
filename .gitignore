@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Node stuff  
+node_modules/
+.next/
+.env.local
+
+# System files
+.DS_Store
