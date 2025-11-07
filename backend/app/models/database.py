@@ -3,7 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
+from backend.app.core.config import settings
 
 # An Engine building a connection with DATABASE using DATABASE URL
 engine = create_engine(settings.DATABASE_URL)
@@ -14,7 +14,7 @@ SessionLocal = sessionmaker(bind=engine, autoflush=False)
 # Telling DATABASE that which class is to be the Table. It's a Parent class to create ORM for creating, updating, deleting 
 # in Database via sessionmaker/ORM
 # Is set as Global to inherit all the Model Classes to be treated as Tables
-Base = declarative_base
+Base = declarative_base()
 
 def get_db():
     
