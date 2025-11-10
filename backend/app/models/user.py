@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
-from .database import Base
+from backend.app.database import Base
 
 # Inherited with Base to specify the User class as a Table for DATABSE
 # Email and Password attributes are nullable so the user can use the app without making an account first
