@@ -32,10 +32,10 @@ def create_user(db: Session, user: UserCreate) -> User:
 def create_anonymous_user(db: Session) -> User:
     
     db_user = User(
-        is_anonymouse = True
+        is_anonymous = True
     )
     
-    db.add(User)
+    db.add(db_user)
     db.commit()
     db.refresh(db_user)
     

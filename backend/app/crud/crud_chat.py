@@ -23,7 +23,7 @@ def get_user_sessions(db: Session, user_id: str) -> List[ChatSession]:
 
     return db.query(ChatSession).filter(ChatSession.user_id == user_id).order_by(ChatSession.updated_at.desc()).all()
 
-def add_message(db:Session, session_id: str, role: str, content: str, ) -> Message:
+def create_message(db:Session, session_id: str, role: str, content: str, ) -> Message:
     
     db_message = Message(
         session_id = session_id,
@@ -37,7 +37,7 @@ def add_message(db:Session, session_id: str, role: str, content: str, ) -> Messa
     
     return db_message
 
-def session_messages(db:Session, session_id: str) -> List[Message]:
+def get_session_messages(db:Session, session_id: str) -> List[Message]:
     
     return db.query(Message).filter(Message.session_id == session_id).order_by(Message.created_at).all()
     
