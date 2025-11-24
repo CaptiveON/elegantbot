@@ -27,8 +27,18 @@ class ChatSessionResponse(BaseModel):
     class Config:
         from_attributes = True
         
+class ChatSessions(BaseModel):
+    
+    user_id: str
+    chat_sessions: ChatSessionResponse
+
+class ChatHistory(BaseModel):
+    
+    session_id: str
+    messages: List[MessageResponse]
+
 class ChatResponse(BaseModel):
+    session_id: str
     user_message: MessageResponse
     bot_response: MessageResponse
-    session_id: str
     
