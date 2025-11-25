@@ -1,7 +1,11 @@
 from sqlalchemy.orm import Session
 from app.crud import crud_user
+from app.models import User
 from app.schema import UserCreate, UserResponse
 from app.exceptions.user_exceptions import UserAlreadyExists
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class UserService:
     
@@ -12,9 +16,26 @@ class UserService:
         if existing_user:
             raise UserAlreadyExists()
         
-        new_user  = crud_user.create_user(db, user)
+        trunkated_pwd = user.password[:72]
+        hashed_password = pwd_context.hash(trunkated_pwd)
+        
+        db_user = User(
+            email = user.email,
+            hashed_password = hashed_password,
+            is_anonymous = False
+        )
+        
+        new_user  = crud_user.create_new_user(db, db_user)
         
         return UserResponse.model_validate(new_user)
     
+    def create_anonymous_user(self, db:Session) -> UserResponse:
+        
+        db_user = User(
+            is_anonymous = True
+        )
+        new_anonymous_user = crud_user.create_anonymous_user(db, db_user)
+
+        return UserResponse.model_validate(new_anonymous_user)
     
 user_service = UserService()

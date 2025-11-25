@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 from app.crud import crud_chat
+from app.models.chat import Message, ChatSession
 from app.schema import MessageCreate, MessageResponse, ChatResponse, ChatHistory, ChatSessions, ChatSessionResponse
-
+from app.exceptions.chat_exceptions import BotResponseException, MessageStorageException
 class ChatService:
     
     def process_message(self, db: Session, user_id: str, message_data: MessageCreate) -> ChatResponse:
@@ -12,27 +13,32 @@ class ChatService:
         if not chat_session:
                 # raise ValueError("Session not Found!")
             title = (message_data.content[:50] + "...") if len(message_data.content) > 50 else message_data.content
-            chat_session = crud_chat.create_session(
-                db = db,
-                user_id = user_id,
-                title = title
+            chat_session = ChatSession(
+                title = title,
+                user_id = user_id
             )
+            chat_session = crud_chat.create_session(db,chat_session)
             
-        user_message = crud_chat.create_message(
-            db = db,
+        user_message = Message(
             session_id = chat_session.id,
             role = "user",
             content = message_data.content
         )
         
+        user_message = crud_chat.create_message(db, user_message)
+        
         bot_response_text = f"I have received your message: {message_data.content}"
         
-        bot_message = crud_chat.create_message(
-            db = db,
+        if not bot_response_text:
+            raise BotResponseException()
+        
+        bot_message = Message(
             session_id = chat_session.id,
-            role= "bot",
-            content=bot_response_text
+            role = "bot",
+            content = bot_response_text
         )
+        
+        bot_message = crud_chat.create_message(db, bot_message)
         
         return ChatResponse(
             user_message= MessageResponse.model_validate(user_message),
