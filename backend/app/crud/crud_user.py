@@ -11,11 +11,11 @@ def get_user_by_id(db:Session, user_id: str) -> User:
 
 def get_user_by_email(db:Session, user_email:str) -> User:
     
-    return db.query(User).filter(User.email == user_email).one()
+    return db.query(User).filter(User.email == user_email).first()
 
 def create_user(db: Session, user: UserCreate) -> User:
-    
-    hashed_password = pwd_context.hash(user.password)
+    trunkated_password = user.password[:72]
+    hashed_password = pwd_context.hash(trunkated_password)
     
     db_user = User(
         email = user.email,

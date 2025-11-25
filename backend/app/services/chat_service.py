@@ -6,11 +6,11 @@ class ChatService:
     
     def process_message(self, db: Session, user_id: str, message_data: MessageCreate) -> ChatResponse:
         
+        chat_session = None
         if message_data.session_id:
             chat_session = crud_chat.get_session(db, message_data.session_id)
-            if not chat_session:
-                raise ValueError("Session not Found!")
-        else:
+        if not chat_session:
+                # raise ValueError("Session not Found!")
             title = (message_data.content[:50] + "...") if len(message_data.content) > 50 else message_data.content
             chat_session = crud_chat.create_session(
                 db = db,
