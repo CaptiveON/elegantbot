@@ -17,11 +17,4 @@ def send_message(
     db: Session = Depends(get_db)
 ):
     
-    try:
-        response = chat_service.process_message(db, user_id, message_data)
-        return response
-    except ValueError as e:
-        raise HTTPException(
-            status_code= status.HTTP_404_NOT_FOUND,
-            detail= str(e)
-        )
+    return chat_service.process_message(db, user_id, message_data)

@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from app.models import User
-from app.schema import UserCreate
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
@@ -13,30 +12,20 @@ def get_user_by_email(db:Session, user_email:str) -> User:
     
     return db.query(User).filter(User.email == user_email).first()
 
-def create_user(db: Session, user: UserCreate) -> User:
-    trunkated_password = user.password[:72]
-    hashed_password = pwd_context.hash(trunkated_password)
-    
-    db_user = User(
-        email = user.email,
-        hashed_password = hashed_password,
-        is_anonymous = False
-    )
-    
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user) #Includes latest data like User ID
-    
-    return db_user
+def create_new_user(db: Session, user: User) -> User:
 
-def create_anonymous_user(db: Session) -> User:
-    
-    db_user = User(
-        is_anonymous = True
-    )
-    
-    db.add(db_user)
+    db.add(user)
     db.commit()
-    db.refresh(db_user)
+    db.refresh(user) #Includes latest data like User ID
     
-    return db_user
+    return user
+
+def create_anonymous_user(db: Session, user: User) -> User:
+    
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    
+    return user
+
+# def get_user_password(db:Session):
