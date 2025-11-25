@@ -14,7 +14,7 @@ class ChatSession(Base):
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default= datetime.now, onupdate= datetime.now)
     
-    user = relationship("User", back_populates="chat_sessions")
+    user = relationship("User", back_populates="chat_session")
     messages = relationship("Message", back_populates="session")
     
 class Message(Base):

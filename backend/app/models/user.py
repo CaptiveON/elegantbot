@@ -16,4 +16,4 @@ class User(Base):
     is_anonymous = Column(Boolean,default= True)
     created_at = Column(DateTime, default=datetime.now)
     
-    chat_sessions = relationship("ChatSession", back_populates="user")
+    chat_session = relationship("ChatSession", back_populates="user")

@@ -17,7 +17,7 @@ def create_session(db: Session, user_id: str, title: str = "New Chat") -> ChatSe
 
 def get_session(db: Session, session_id: str) -> ChatSession:
     
-    return db.query(ChatSession).filter(ChatSession.id == session_id).one()
+    return db.query(ChatSession).filter(ChatSession.id == session_id).first()
 
 def get_user_sessions(db: Session, user_id: str) -> List[ChatSession]:
 
