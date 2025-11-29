@@ -1,20 +1,34 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
+from app.core.security import decode_access_token
 from app.database import get_db
-from app.models import User
+from app.models.user import User
 from app.crud import crud_user
+from app.exceptions.auth_exceptions import LoginTimeOut
 
-def get_current_user(
-    user_id: str,
+security = HTTPBearer()
+
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ) -> User:
     
-    user = crud_user.get_user_by_id(db, user_id=1)
+    token  = credentials.credentials
     
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User Not Found"
-        )
-        
+    payload = decode_access_token(token)
+    
+    if payload is None:
+        raise LoginTimeOut()
+    
+    user_id: str = payload.get("sub")
+    
+    if user_id is None:
+        raise LoginTimeOut()
+    
+    user  = crud_user.get_user_by_id(db, user_id)
+    
+    if user is None:
+        raise LoginTimeOut()    
+    
     return user
