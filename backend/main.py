@@ -7,8 +7,8 @@ from app.exceptions.base import AppException
 
 
 app = FastAPI(
-    title = "Simple Chat API",
-    description= "A simple chat api",
+    title = "ELEGANTBot",
+    description= "ElegantBot API",
     version="0.0.1"
 )
 
@@ -32,4 +32,4 @@ async def app_exception_handler(request: Request, exc: AppException):
 
 @app.get("/")
 def root():
-    return {"message": "Simple Chat api"}
+    return {"message": "ElegantBot Chat API"}

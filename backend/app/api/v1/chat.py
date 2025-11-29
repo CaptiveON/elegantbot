@@ -13,8 +13,8 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 @router.post("/message", response_model=ChatResponse)
 def send_message(
     message_data: MessageCreate,
-    user_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     
-    return chat_service.process_message(db, user_id, message_data)
+    return chat_service.process_message(db, current_user.id, message_data)

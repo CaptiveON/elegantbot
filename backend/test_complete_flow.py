@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.crud import crud_user, crud_chat
+from app.models.user import User
 from app.services.chat_service import chat_service
 from app.schema import MessageCreate
 
@@ -11,7 +12,10 @@ db = SessionLocal()
 
 # Step 1: Create a user
 print("1️⃣ Creating anonymous user...")
-user = crud_user.create_anonymous_user(db)
+user = User(
+    is_anonymous = True
+)
+user = crud_user.create_anonymous_user(db, user)
 print(f"   ✅ User created: {user.id}\n")
 
 # Step 2: Send first message
