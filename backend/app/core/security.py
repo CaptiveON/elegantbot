@@ -1,16 +1,7 @@
-from fastapi import Depends, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlalchemy.orm import Session
-# from app.core.security import 
-from app.database import get_db
-from app.models.user import User
-from app.crud import crud_user
-
 from passlib.context import CryptContext
 from typing import Optional
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-from app.exceptions.auth_exceptions import LoginTimeOut
 from app.core.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

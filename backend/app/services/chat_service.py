@@ -61,7 +61,7 @@ class ChatService:
         
         return ChatSessions(
             user_id= user_id,
-            session = [ChatSessionResponse.model_validate(s) for s in orm_sessions]
+            chat_sessions= [ChatSessionResponse.model_validate(s) for s in orm_sessions]
         )
 
 chat_service = ChatService()
