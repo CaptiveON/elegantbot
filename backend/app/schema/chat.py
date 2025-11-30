@@ -32,7 +32,7 @@ class ChatSessionResponse(BaseModel):
 class ChatSessions(BaseModel):
     
     user_id: str
-    chat_sessions: ChatSessionResponse
+    chat_sessions: List[ChatSessionResponse]
 
 class ChatHistory(BaseModel):
     
