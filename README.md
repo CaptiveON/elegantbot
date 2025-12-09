@@ -1,2 +1,2 @@
 # elegantbot
-An AI BOT helping a customer with finance related queries using RAG to decrease hallucinations and provide contextual answers.
+An AI ChatBOT guiding the SME's with TAX related queries using RAG to decrease hallucinations and provide contextual answers.
