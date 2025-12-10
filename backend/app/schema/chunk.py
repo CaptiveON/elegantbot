@@ -76,10 +76,10 @@ class TemporalMetadata(BaseModel):
 
 class ClassificationMetadata(BaseModel):
     """Classification metadata for a chunk"""
-    topic_primary: TopicPrimary
+    topic_primary: Optional[TopicPrimary] = None #LLM Populated
     topic_secondary: List[str] = []
     business_types: List[str] = []
-    content_type: ContentType
+    content_type: Optional[ContentType] = None #LLM Populated
     service_category: ServiceCategory = ServiceCategory.NONE
     reliability_tier: int = Field(ge=1, le=3)
 
@@ -137,10 +137,10 @@ class ChunkCreate(BaseModel):
     citable_reference: Optional[str] = Field(None, description="Full human-readable citation")
     
     # Classification
-    topic_primary: TopicPrimary
+    topic_primary: Optional[TopicPrimary] = None #LLM Populated
     topic_secondary: List[str] = []
     business_types: List[str] = []
-    content_type: ContentType
+    content_type: Optional[ContentType] = None #LLM Populated
     service_category: ServiceCategory = ServiceCategory.NONE
     reliability_tier: int = Field(ge=1, le=3, default=2)
     

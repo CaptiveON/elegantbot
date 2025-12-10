@@ -857,3 +857,50 @@ def get_structured_content_stats(db: Session) -> StructuredContentStats:
         deadlines_by_type=deadlines_by_type,
         examples_by_category=examples_by_category
     )
+
+
+# =============================================================================
+# FUNCTION ALIASES FOR PIPELINE COMPATIBILITY
+# =============================================================================
+
+# Table aliases
+create_structured_table = create_table
+get_structured_table = get_table
+update_structured_table = update_table
+delete_structured_table = delete_table
+
+# Formula aliases
+create_structured_formula = create_formula
+get_structured_formula = get_formula
+update_structured_formula = update_formula
+delete_structured_formula = delete_formula
+
+# Decision Tree aliases
+create_structured_decision_tree = create_decision_tree
+get_structured_decision_tree = get_decision_tree
+update_structured_decision_tree = update_decision_tree
+delete_structured_decision_tree = delete_decision_tree
+
+# Deadline aliases
+create_structured_deadline = create_deadline
+get_structured_deadline = get_deadline
+update_structured_deadline = update_deadline
+delete_structured_deadline = delete_deadline
+
+# Example aliases
+create_structured_example = create_example
+get_structured_example = get_example
+update_structured_example = update_example
+delete_structured_example = delete_example
+
+# Contact aliases
+create_structured_contact = create_contact
+get_structured_contact = get_contact
+update_structured_contact = update_contact
+delete_structured_contact = delete_contact
+
+# Condition List aliases
+create_structured_condition_list = create_condition_list
+get_structured_condition_list = get_condition_list
+update_structured_condition_list = update_condition_list
+delete_structured_condition_list = delete_condition_list

@@ -41,7 +41,7 @@ class DocumentCreate(BaseModel):
     reliability_tier: int = Field(ge=1, le=3, default=2)
     title: str
     parent_document: Optional[str] = None
-    section_hierarchy: Optional[str] = None  # JSON string
+    section_hierarchy: Optional[List[str]] = None  # JSON string
     publication_date: Optional[datetime] = None
     last_updated_source: Optional[datetime] = None
     effective_from: Optional[datetime] = None
@@ -53,7 +53,7 @@ class DocumentUpdate(BaseModel):
     # Schema for updating a source document
     title: Optional[str] = None
     parent_document: Optional[str] = None
-    section_hierarchy: Optional[str] = None
+    section_hierarchy: Optional[List[str]] = None
     publication_date: Optional[datetime] = None
     last_updated_source: Optional[datetime] = None
     effective_from: Optional[datetime] = None
