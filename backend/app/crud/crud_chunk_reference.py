@@ -474,3 +474,13 @@ def get_most_referenced_chunks(
         {"chunk_id": row[0], "reference_count": row[1]}
         for row in results
     ]
+
+
+# =============================================================================
+# FUNCTION ALIASES FOR PIPELINE COMPATIBILITY  
+# =============================================================================
+
+create_chunk_reference = create_reference
+get_chunk_reference = get_reference
+update_chunk_reference = update_reference
+delete_chunk_reference = delete_reference

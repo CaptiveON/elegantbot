@@ -102,10 +102,10 @@ class DocumentChunk(Base):
     )
     
     # === CLASSIFICATION METADATA ===
-    topic_primary = Column(SQLEnum(TopicPrimary), nullable=False)
+    topic_primary = Column(SQLEnum(TopicPrimary), nullable=True)
     topic_secondary = Column(JSONB, nullable=True, default=list)  # Array of secondary topics
     business_types = Column(JSONB, nullable=True, default=list)  # ["sole_trader", "limited_company", etc.]
-    content_type = Column(SQLEnum(ContentType), nullable=False)
+    content_type = Column(SQLEnum(ContentType), nullable=True)
     service_category = Column(SQLEnum(ServiceCategory), default=ServiceCategory.NONE)
     reliability_tier = Column(Integer, nullable=False)
     

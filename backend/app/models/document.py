@@ -28,6 +28,7 @@ class DocumentType(StrEnum):
     FORM_INSTRUCTIONS = "form_instructions"
     SERVICE_INFO = "service_info"
     CONTACT_INFO = "contact_info"
+    NEWS = "NEWS"
     
 class ReliabilityTier(IntEnum):
     # Reliability tiers for source documents
@@ -100,3 +101,9 @@ class SourceDocument(Base):
     # Overrided Representation of SourceDocument Object for logging
     def __repr__(self):
         return f"<SourceDocument(id = {self.id}, title = {self.title}, authority = {self.authority}, source = {self.url})>"
+    
+    
+    
+    
+    # Handle redirection of api URLs to automatically
+    # going to the new URL and grab data
